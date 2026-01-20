@@ -4,7 +4,8 @@ import math
 
 #Global variables
 NOT_A_NUMBER = "NaN" 
-ANSWER: int
+ANSWER: int | None = None
+
 
 #Main
 def main():
@@ -34,12 +35,12 @@ def main():
         numbers = get_numbers()
         #Assign the first number to answer then remove it from the first element in the array
         if len(numbers) == 0:
-            ANSWER = 0
+            ANSWER = 0 
         #Perform the operation on the numbers stored in 'numbers'
         #Display to output the result
         if operation(numbers) == "Division by zero":
             print("Division by zero")
-            ANSWER = numbers[0]
+            ANSWER = None
         else:
             print(ANSWER) 
 
@@ -87,7 +88,7 @@ def handle_operator(operator):
             print(ANSWER)
             return "memory"
         case "cls" | "clear" | "clr" | "del":
-            ANSWER = 0
+            ANSWER = None
             return "clear"
         case "add" | "addition" | "a" | "+": 
             return addition 
@@ -103,9 +104,9 @@ def handle_operator(operator):
 #Function to add an array of inputs 
 def addition(lst):
     global ANSWER
+    if ANSWER is None or len(lst) > 1:
+        ANSWER = lst.pop(0)
     #Output (n+(n+1)+(n+2)...)
-    ANSWER = lst[0]
-    lst.pop(0)
     print(ANSWER,"+"," + ".join("{0}".format(n) for n in lst))
     for number in lst:
         ANSWER += number
@@ -113,8 +114,8 @@ def addition(lst):
 #Function to subtract 2 inputs 
 def subtraction(lst):
     global ANSWER
-    ANSWER = lst[0]
-    lst.pop(0)
+    if ANSWER is None or len(lst) > 1:
+        ANSWER = lst.pop(0)
     #Output (n-(n+1)-(n+2)...)
     print(ANSWER,"-"," - ".join("{0}".format(n) for n in lst))
     for number in lst:
@@ -124,8 +125,8 @@ def subtraction(lst):
 #Function to divide 2 inputs 
 def division(lst):
     global ANSWER
-    ANSWER = lst[0]
-    lst.pop(0)
+    if ANSWER is None or len(lst) > 1:
+        ANSWER = lst.pop(0)
     try:
         #Output (n/(n+1)/(n+2)...)
         print(ANSWER,"/"," / ".join("{0}".format(n) for n in lst))
@@ -141,8 +142,8 @@ def division(lst):
 #Function to multiply 2 inputs 
 def multiplication(lst):
     global ANSWER
-    ANSWER = lst[0]
-    lst.pop(0)
+    if ANSWER is None or len(lst) > 1:
+        ANSWER = lst.pop(0)
     #Output (n*(n+1)*(n+2)...)
     print(ANSWER,"*"," * ".join("{0}".format(n) for n in lst))
     for number in lst:
@@ -152,3 +153,4 @@ def multiplication(lst):
 #Prevents the program from being ran when imported (probably will use this with OOP) 
 if __name__ == "__main__": 
     main() 
+
