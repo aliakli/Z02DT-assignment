@@ -4,7 +4,7 @@ import math
 
 #Global variables
 NOT_A_NUMBER = "NaN" 
-ANSWER = 0
+ANSWER: int
 
 #Main
 def main():
@@ -33,12 +33,13 @@ def main():
         #Get user number inputs
         numbers = get_numbers()
         #Assign the first number to answer then remove it from the first element in the array
-        ANSWER += 0 if len(numbers) == 0 else numbers.pop(0)
+        if len(numbers) == 0:
+            ANSWER = 0
         #Perform the operation on the numbers stored in 'numbers'
         #Display to output the result
         if operation(numbers) == "Division by zero":
             print("Division by zero")
-            ANSWER = 0
+            ANSWER = numbers[0]
         else:
             print(ANSWER) 
 
@@ -103,19 +104,28 @@ def handle_operator(operator):
 def addition(lst):
     global ANSWER
     #Output (n+(n+1)+(n+2)...)
+    ANSWER = lst[0]
+    lst.pop(0)
     print(ANSWER,"+"," + ".join("{0}".format(n) for n in lst))
-    ANSWER += sum(lst)
+    for number in lst:
+        ANSWER += number
 
 #Function to subtract 2 inputs 
 def subtraction(lst):
     global ANSWER
+    ANSWER = lst[0]
+    lst.pop(0)
     #Output (n-(n+1)-(n+2)...)
     print(ANSWER,"-"," - ".join("{0}".format(n) for n in lst))
-    ANSWER -= sum(lst)
+    for number in lst:
+        ANSWER -= number
+    
 
 #Function to divide 2 inputs 
 def division(lst):
     global ANSWER
+    ANSWER = lst[0]
+    lst.pop(0)
     try:
         #Output (n/(n+1)/(n+2)...)
         print(ANSWER,"/"," / ".join("{0}".format(n) for n in lst))
@@ -131,6 +141,8 @@ def division(lst):
 #Function to multiply 2 inputs 
 def multiplication(lst):
     global ANSWER
+    ANSWER = lst[0]
+    lst.pop(0)
     #Output (n*(n+1)*(n+2)...)
     print(ANSWER,"*"," * ".join("{0}".format(n) for n in lst))
     for number in lst:
@@ -140,4 +152,3 @@ def multiplication(lst):
 #Prevents the program from being ran when imported (probably will use this with OOP) 
 if __name__ == "__main__": 
     main() 
-
