@@ -63,4 +63,9 @@ class Operators:
         self.answer = math.tan(math.radians(self.answer))
         return self.answer
     
-        
+    def log(self, numbers):
+        for n in numbers:
+            self.answer += n
+        print(f"log_10({self.answer})")
+        self.answer = math.log10(self.answer)
+        return self.answer
