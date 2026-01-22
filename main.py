@@ -12,13 +12,13 @@ def main():
     valid_nums = NumberValidation()
 
     while True:
-        operation = input("Enter an operand (+,-,*,/), enter 'clr' to delete memory,\nenter 'ans' to see the answer stored in memory or press enter to exit: ").lower().strip()
+        operation = input("Enter an operator (+,-,*,/), enter 'clr' to delete memory,\nenter 'ans' to see the answer stored in memory or press enter to exit: ").lower().strip()
         if operation == "":
             print("Goodbye")
             break
         operation = handle_operator(operation, operators)
-        if operation == "Not an operand":
-            print("Invalid operand")
+        if operation == "Not an operator":
+            print("Invalid operator")
             continue
         elif operation is None:
             continue
@@ -51,6 +51,12 @@ def handle_operator(operator,operators):
             return operators.division
         case "exp" | "exponentiation" | "power" | "^" | "**":
             return operators.exponentiation
+        case "sin" | "sine":
+            return operators.sine
+        case "cos" | "cosine":
+            return operators.cosine
+        case "tan" | "tangent":
+            return operators.tangent
         case _: 
             return "Not an operator" 
 
