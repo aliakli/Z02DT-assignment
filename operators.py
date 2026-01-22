@@ -40,6 +40,8 @@ class Operators:
         for n in numbers:
             self.answer **= n
         return self.answer
+    
+    
         
             
         

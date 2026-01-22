@@ -1,14 +1,15 @@
 #14/01
 #Imports
 from operators import Operators
+from NumberValidation import NumberValidation
 #Global variables
-NOT_A_NUMBER = "NaN" 
-operators = Operators()
+
 
 
 #Main
 def main():
     operators = Operators()
+    valid_nums = NumberValidation()
 
     while True:
         operation = input("Enter an operand (+,-,*,/), enter 'clr' to delete memory,\nenter 'ans' to see the answer stored in memory or press enter to exit: ").lower().strip()
@@ -19,7 +20,9 @@ def main():
         if operation == "Not an operand":
             print("Invalid operand")
             continue
-        numbers = get_numbers()
+        elif operation is None:
+            continue
+        numbers = valid_nums.get_numbers()
         if len(numbers) > 0:
             operators.answer += numbers.pop(0)
         result = operation(numbers)
@@ -28,41 +31,6 @@ def main():
             operators.clear()
         else:
             print(operators.answer)
-#Gets the validated numbers from the user input then stores them in an array
-def get_numbers():
-    numbers = []
-    #Loops until the final input is '='
-    while True:
-        #Add the validated number to the end of the list
-        numbers.append(get_valid_number())
-        #Checks if the last value in the array is '='
-        if numbers[-1] == "=":
-            #Remove the '='
-            numbers.pop()
-            break
-    #Return the array
-    return numbers
-            
-#Gets number from user input and validates     
-def get_valid_number():
-    num = input("Enter a number and press '=' to compute: ")
-    #Loops until valid number is given
-    while validate_number(num) == NOT_A_NUMBER:
-        num = input("Not a valid number\nEnter a number: ")
-    return validate_number(num)
-
-#Function to validate number 
-def validate_number(inp):
-    if inp == "=":
-        return "="
-    else:
-        try: 
-            a = float(inp)
-            return int(a) if a.is_integer() else a
-        except ValueError: 
-            #If a number given is not a valid number, this prevents the program from crashing 
-            return NOT_A_NUMBER 
-
 #Function to decide which operator is being requested 
 def handle_operator(operator,operators): 
     #Using a variety of ways people may ask for an operator to account for the broadest amount of users
@@ -80,7 +48,9 @@ def handle_operator(operator,operators):
         case "multiply" | "mult" | "m" | "*" | "multiplication": 
             return operators.multiplication 
         case "division" | "div" | "d" | "/" | "divide": 
-            return operators.division 
+            return operators.division
+        case "exp" | "exponentiation" | "power" | "^" | "**":
+            return operators.exponentiation
         case _: 
             return "Not an operator" 
 

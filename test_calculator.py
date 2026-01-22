@@ -2,8 +2,9 @@ import unittest
 import sys
 import os
 
-from operators import Operators 
-from main import validate_number,handle_operator
+from operators import Operators
+from NumberValidation import NumberValidation
+from main import handle_operator
 
 
 # ---------- Output Suppression Helpers ----------
@@ -43,18 +44,24 @@ class TestOperatorInput(unittest.TestCase):
 
 # ---------- Number Input Validation ----------
 class TestNumberValidation(unittest.TestCase):
+    def setUp(self):
+        self.valid = NumberValidation()
+        suppress_output()
 
+    def tearDown(self):
+        restore_output()
+    
     def test_Calc_5_valid_integer(self):
-        self.assertEqual(validate_number("5"), 5)
+        self.assertEqual(self.valid.validate_number("5"), 5)
 
     def test_Calc_6_valid_float(self):
-        self.assertEqual(validate_number("2.5"), 2.5)
+        self.assertEqual(self.valid.validate_number("2.5"), 2.5)
 
     def test_Calc_7_invalid_number(self):
-        self.assertEqual(validate_number("abc"), "NaN")
+        self.assertEqual(self.valid.validate_number("abc"), "NaN")
 
     def test_Calc_8_equals_sign(self):
-        self.assertEqual(validate_number("="), "=")
+        self.assertEqual(self.valid.validate_number("="), "=")
 
 
 # ---------- Arithmetic Operations ----------
@@ -138,8 +145,6 @@ class TestErrorHandling(unittest.TestCase):
         result = self.ops.division([0])
         self.assertEqual(result, "Division by zero")
 
-
-# ---------- Run Tests ----------
 if __name__ == "__main__":
     # Create a test suite
     suite = unittest.TestSuite()
@@ -172,4 +177,3 @@ if __name__ == "__main__":
     # Run the suite with verbosity
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)
-
