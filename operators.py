@@ -1,3 +1,4 @@
+import math
 class Operators:
     def __init__(self):
         self.answer = 0
@@ -41,7 +42,25 @@ class Operators:
             self.answer **= n
         return self.answer
     
+    def sine(self, numbers):
+        for n in numbers:
+            self.answer += n
+        print(f"sin({self.answer})")
+        self.answer = math.sin(math.radians(self.answer))
+        return self.answer
     
-        
-            
+    def cosine(self, numbers):
+        for n in numbers:
+            self.answer += n
+        print(f"cos({self.answer})")
+        self.answer = math.cos(math.radians(self.answer))
+        return self.answer
+
+    def tangent(self, numbers):
+        for n in numbers:
+            self.answer += n
+        print(f"tan({self.answer})")
+        self.answer = math.tan(math.radians(self.answer))
+        return self.answer
+    
         
