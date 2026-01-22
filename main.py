@@ -1,49 +1,33 @@
 #14/01
 #Imports
-import math
-
+from operators import Operators
 #Global variables
 NOT_A_NUMBER = "NaN" 
-ANSWER: int | None = None
+operators = Operators()
 
 
 #Main
 def main():
-    #Call global ANSWER variable
-    global ANSWER
-    #Main program loop 
-    while True: 
-        #Check whether user wants to continue using the calculator, clear memory or exit (strip to remove whitespace and move input to lower case) 
-        operation = input("Enter an operator (+,-,*,/), enter 'clr' to delete memory, enter 'ans' to see the answer stored in memory or press enter to exit: ").lower().strip() 
-        #End main program loop if requested to 
-        if operation == "": 
-            print("Goodbye") 
-            break
-        
-        #Store the operation in the variable 'operation'
-        operation = handle_operator(operation) 
-        if operation == "Not an operator": 
-            print("Invalid operator") 
-            continue
-        elif operation == "clear":
-            print(ANSWER)
-            continue
-        elif operation == "memory":
-            continue
-        
-        #Get user number inputs
-        numbers = get_numbers()
-        #Assign the first number to answer then remove it from the first element in the array
-        if len(numbers) == 0:
-            ANSWER = 0 
-        #Perform the operation on the numbers stored in 'numbers'
-        #Display to output the result
-        if operation(numbers) == "Division by zero":
-            print("Division by zero")
-            ANSWER = None
-        else:
-            print(ANSWER) 
+    operators = Operators()
 
+    while True:
+        operation = input("Enter an operand (+,-,*,/), enter 'clr' to delete memory,\nenter 'ans' to see the answer stored in memory or press enter to exit: ").lower().strip()
+        if operation == "":
+            print("Goodbye")
+            break
+        operation = handle_operator(operation, operators)
+        if operation == "Not an operand":
+            print("Invalid operand")
+            continue
+        numbers = get_numbers()
+        if len(numbers) > 0:
+            operators.answer += numbers.pop(0)
+        result = operation(numbers)
+        if result == "Division by zero":
+            print(result)
+            operators.clear()
+        else:
+            print(operators.answer)
 #Gets the validated numbers from the user input then stores them in an array
 def get_numbers():
     numbers = []
@@ -80,77 +64,26 @@ def validate_number(inp):
             return NOT_A_NUMBER 
 
 #Function to decide which operator is being requested 
-def handle_operator(operator): 
+def handle_operator(operator,operators): 
     #Using a variety of ways people may ask for an operator to account for the broadest amount of users
-    global ANSWER
     match operator:
         case "mem" | "memory" | "ans" | "answer":
-            print(ANSWER)
-            return "memory"
+            print(operators.memory())
+            return None
         case "cls" | "clear" | "clr" | "del":
-            ANSWER = None
-            return "clear"
+            operators.clear()
+            return None
         case "add" | "addition" | "a" | "+": 
-            return addition 
+            return operators.add 
         case "sub" | "subtraction" | "s" | "-" | "subtract": 
-            return subtraction 
+            return operators.subtraction 
         case "multiply" | "mult" | "m" | "*" | "multiplication": 
-            return multiplication 
+            return operators.multiplication 
         case "division" | "div" | "d" | "/" | "divide": 
-            return division 
+            return operators.division 
         case _: 
             return "Not an operator" 
-
-#Function to add an array of inputs 
-def addition(lst):
-    global ANSWER
-    if ANSWER is None or len(lst) > 1:
-        ANSWER = lst.pop(0)
-    #Output (n+(n+1)+(n+2)...)
-    print(ANSWER,"+"," + ".join("{0}".format(n) for n in lst))
-    for number in lst:
-        ANSWER += number
-
-#Function to subtract 2 inputs 
-def subtraction(lst):
-    global ANSWER
-    if ANSWER is None or len(lst) > 1:
-        ANSWER = lst.pop(0)
-    #Output (n-(n+1)-(n+2)...)
-    print(ANSWER,"-"," - ".join("{0}".format(n) for n in lst))
-    for number in lst:
-        ANSWER -= number
-    
-
-#Function to divide 2 inputs 
-def division(lst):
-    global ANSWER
-    if ANSWER is None or len(lst) > 1:
-        ANSWER = lst.pop(0)
-    try:
-        #Output (n/(n+1)/(n+2)...)
-        print(ANSWER,"/"," / ".join("{0}".format(n) for n in lst))
-        for number in lst:
-            ANSWER /= number
-        ANSWER = validate_number(ANSWER) 
-    #To prevent the program from crashing, this exception catches the ZeroDivisionError and returns the string 
-    except ZeroDivisionError:
-        return "Division by zero" 
-
-  
-
-#Function to multiply 2 inputs 
-def multiplication(lst):
-    global ANSWER
-    if ANSWER is None or len(lst) > 1:
-        ANSWER = lst.pop(0)
-    #Output (n*(n+1)*(n+2)...)
-    print(ANSWER,"*"," * ".join("{0}".format(n) for n in lst))
-    for number in lst:
-        ANSWER *= number
-
 
 #Prevents the program from being ran when imported (probably will use this with OOP) 
 if __name__ == "__main__": 
     main() 
-
