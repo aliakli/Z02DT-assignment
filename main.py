@@ -12,10 +12,27 @@ def main():
     valid_nums = NumberValidation()
 
     while True:
-        operation = input("Enter an operator (+,-,*,/), enter 'clr' to delete memory,\nenter 'ans' to see the answer stored in memory or press enter to exit: ").lower().strip()
+        operation = input("Enter an operator, enter 'help' for help or press enter to exit: ").lower().strip()
         if operation == "":
             print("Goodbye")
             break
+        if operation == "help":
+            print("""
+Enter ans to recall memory
+Enter clr to clear memory\n
+Enter the following for their respective functions:
++/add: addition
+-/sub: subtraction
+*/mult: multiplication
+/ or div: division
+^/exp: exponentiation\n
+Trig (degrees)
+sin
+cos
+tan\n
+log: logarithm
+            """)
+            continue
         operation = handle_operator(operation, operators)
         if operation == "Not an operator":
             print("Invalid operator")
@@ -57,6 +74,8 @@ def handle_operator(operator,operators):
             return operators.cosine
         case "tan" | "tangent":
             return operators.tangent
+        case "log" | "logarithm":
+            return operators.log10
         case _: 
             return "Not an operator" 
 
