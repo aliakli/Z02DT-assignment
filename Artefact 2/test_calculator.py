@@ -2,8 +2,9 @@ import unittest
 import sys
 import os
 
-from operators import Operators 
-from main import validate_number,handle_operator
+from operators import Operators
+from NumberValidation import NumberValidation
+from main import handle_operator
 
 
 # ---------- Output Suppression Helpers ----------
@@ -43,18 +44,24 @@ class TestOperatorInput(unittest.TestCase):
 
 # ---------- Number Input Validation ----------
 class TestNumberValidation(unittest.TestCase):
+    def setUp(self):
+        self.valid = NumberValidation()
+        suppress_output()
 
+    def tearDown(self):
+        restore_output()
+    
     def test_Calc_5_valid_integer(self):
-        self.assertEqual(validate_number("5"), 5)
+        self.assertEqual(self.valid.validate_number("5"), 5)
 
     def test_Calc_6_valid_float(self):
-        self.assertEqual(validate_number("2.5"), 2.5)
+        self.assertEqual(self.valid.validate_number("2.5"), 2.5)
 
     def test_Calc_7_invalid_number(self):
-        self.assertEqual(validate_number("abc"), "NaN")
+        self.assertEqual(self.valid.validate_number("abc"), "NaN")
 
     def test_Calc_8_equals_sign(self):
-        self.assertEqual(validate_number("="), "=")
+        self.assertEqual(self.valid.validate_number("="), "=")
 
 
 # ---------- Arithmetic Operations ----------
@@ -84,6 +91,18 @@ class TestArithmeticOperations(unittest.TestCase):
         self.ops.answer = 1
         self.ops.multiplication([4, 5])
         self.assertEqual(self.ops.answer, 20)
+    
+    def test_Calc_1x_sine(self):
+        self.ops.sine([45,45])
+        self.assertEqual(round(self.ops.answer), 1)
+        
+    def test_Calc_1x_cosine(self):
+        self.ops.cosine([45,45])
+        self.assertEqual(round(self.ops.answer), 0)
+        
+    def test_Calc_1x_tangent(self):
+        self.ops.tangent([45])
+        self.assertEqual(round(self.ops.answer), 1)
 
     def test_Calc_13_multiple_numbers(self):
         self.ops.add([1, 2, 3])
@@ -138,8 +157,6 @@ class TestErrorHandling(unittest.TestCase):
         result = self.ops.division([0])
         self.assertEqual(result, "Division by zero")
 
-
-# ---------- Run Tests ----------
 if __name__ == "__main__":
     # Create a test suite
     suite = unittest.TestSuite()
@@ -161,6 +178,9 @@ if __name__ == "__main__":
     suite.addTest(TestArithmeticOperations('test_Calc_12_multiplication'))
     suite.addTest(TestArithmeticOperations('test_Calc_13_multiple_numbers'))
     suite.addTest(TestArithmeticOperations('test_Calc_14_different_operations'))
+    suite.addTest(TestArithmeticOperations('test_Calc_1x_sine'))
+    suite.addTest(TestArithmeticOperations('test_Calc_1x_cosine'))
+    suite.addTest(TestArithmeticOperations('test_Calc_1x_tangent'))
 
     suite.addTest(TestMemoryFunctions('test_Calc_15_store_in_memory'))
     suite.addTest(TestMemoryFunctions('test_Calc_16_apply_operations_to_memory'))
@@ -172,4 +192,5 @@ if __name__ == "__main__":
     # Run the suite with verbosity
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)
+
 
