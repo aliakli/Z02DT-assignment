@@ -1,50 +1,28 @@
-tokens = []
-current_num = ""
-calculation = input().strip()
+import ast
+import operator
 
-def get_numbers(inp):
-    numbers = []
-    for i in inp:
-        if isinstance(i,float):
-            numbers.append(i)
-    return numbers
-
-def get_operators(inp):
-    numbers = []
-    for i in inp:
-        if not isinstance(i,float):
-            numbers.append(i)
-    return numbers
+class Calculator:
+    arithmetic_operators = {
+        ast.Add : operator.add,
+        ast.Sub : operator.sub,
+        ast.Mult : operator.mul,
+        ast.Div : operator.truediv
+        }
+    def tokenise_expression(self, expression):
+        tokens = ast.parse(expression, mode="eval")
+        return self.evaluate_expression(tokens.body)
+    
+    def evaluate_expression(self, expression):
+        if isinstance(expression, ast.Constant) and isinstance(expression.value, (int,float)):
+            return expression.value
+        if isinstance(expression,ast.BinOp):
+            left = self.evaluate_expression(expression.left)
+            right = self.evaluate_expression(expression.right)
+            operation_type = type(expression.op)
+            if operation_type in self.arithmetic_operators:
+                return self.arithmetic_operators[operation_type](left,right)
             
-            
-
-for i in calculation:
-    if i.isdigit() or i == ".":
-        current_num += i
-    elif i in "+-*/()^":
-            if current_num:
-                current_num = float(current_num)
-                
-                tokens.append(current_num)
-                tokens.append(i)
-                current_num = ""
-            else:
-                tokens.append(i)
-
-numbers = get_numbers(tokens)                
-operations = get_operators(tokens)
-subexpr = []
-if current_num:
-    tokens.append(float(current_num))
-start = 0
-end = 0
-for i in (0,len(operations)-1):
-    if operations[i] == ")":
-        start = i
-        for j in range(0,len(operations)-1,-1):
-            if operations[j] == "(":
-                end = j
-                subexpr.append(operations[start:end])
-print(subexpr)
-                
-                
+        
+        
+a = Calculator()
+print(a.tokenise_expression("1+2+3-5"))
