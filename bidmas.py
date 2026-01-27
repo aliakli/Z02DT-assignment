@@ -22,7 +22,16 @@ class Calculator:
             if operation_type in self.arithmetic_operators:
                 return self.arithmetic_operators[operation_type](left,right)
             
-        
+"""
+if isinstance(node, ast.UnaryOp):
+            val = self._eval_node(node.operand)
+            if isinstance(node.op, ast.UAdd):
+                return +val
+            if isinstance(node.op, ast.USub):
+                return -val
+                
+"""
         
 a = Calculator()
 print(a.tokenise_expression("1+2+3-5"))
+
