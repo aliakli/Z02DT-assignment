@@ -60,7 +60,14 @@ class Calculator:
         
     def evaluate_expression(self, expression):
         if isinstance(expression, ast.Call):
-            return self.evaluate_function(expression)    
+            return self.evaluate_function(expression)            
+        
+        if isinstance(expression, ast.Name):
+            if expression.id in self.constants:
+                return self.constants[expression.id]
+            else:
+                raise Exception(f"Unknown identifier: {expression.id}")
+
              
         if isinstance(expression, ast.Constant) and isinstance(expression.value, (int,float)):
             return expression.value
