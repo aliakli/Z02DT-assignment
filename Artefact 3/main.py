@@ -2,16 +2,21 @@
 #Imports
 from bidmas import Calculator
 #Global variables
+
 #Main
 def main():
+    instance = Calculator()
     while True:
-        instance = Calculator()
-        expression = input("Enter expression or type exit to close:\n")
-        if expression != "exit":
-            print(instance.tokenise_expression(expression))
-        else:
-            print("Goodbye...")
+        
+        expression = input("Enter expression, type exit to close or type mode to change mode:\n")
+        if expression.lower() == "exit":
             break
-#Prevents the program from being ran when imported (probably will use this with OOP) 
+        elif expression.lower() == "mode":
+            instance.angle_mode = not instance.angle_mode
+            print("Radians" if instance.angle_mode else "Degrees") 
+        else:
+            print(instance.tokenise_expression(expression))
+        
+#Prevents the program from being ran when imported
 if __name__ == "__main__": 
     main() 
