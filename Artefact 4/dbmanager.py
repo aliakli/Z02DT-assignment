@@ -25,7 +25,15 @@ class Database:
             except:
                 print(f"database '{name}' could not be created")
             
-            
+    def __create_table(self, table_name, *columns):
+        cursor = self.cursor
+        columns_sql = ", ".join(columns)
+        query = f"""
+        CREATE TABLE IF NOT EXISTS {table_name}
+        ({columns_sql})
+        ENGINE = InnoDB
+        """
+        self.cursor.execute(query)
         
     def __connect(self, target_database):
         try:
@@ -41,16 +49,20 @@ class Database:
             return False
             
         
+class UserManagement(Database):
+    def __init__(self):
+        super().__init__("users")
+        
 
+        
 
         
 
         
 
-db = Database("users")
+db = UserManagement()
 cursor = db.cursor
 cursor.execute("SHOW DATABASES")
 
-for x in cursor:
-  print(x)
+
 
