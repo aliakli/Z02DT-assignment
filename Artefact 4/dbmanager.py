@@ -6,7 +6,7 @@ from cryptography.fernet import Fernet
 k = open("key.txt", "r")
 
 
-def log_change(user, change):
+def log_change(change, user = "admin"):
     logs = open("log.txt", "a")
     now = datetime.datetime.today().replace(microsecond=0)
     logs.write(f"{user}: {change}: {now}\n")
@@ -27,7 +27,7 @@ class Database:
         else:
             self.cursor = self.db.cursor()
             print(f"successfuly connected to {target_database}")
-            log_change("Admin", "Connected to database")
+            log_change("Connected to database", user = "admin")
             # test
             # self.__create_database("johnCena")
 
@@ -37,7 +37,7 @@ class Database:
         if name not in cursor:
             try:
                 cursor.execute(f"CREATE DATABASE {name}")
-                log_change("Admin", f"Created database called {name}")
+                log_change(f"Created database called {name}", user = "admin")
             except:
                 print(f"database '{name}' could not be created")
 
@@ -57,7 +57,7 @@ class Database:
         ENGINE = InnoDB
         """
         self.cursor.execute(query)
-        log_change("Admin", f"Created table called {table_name}")
+        log_change(f"Created table called {table_name}", user = "admin")
 
     def __connect(self, target_database):
         try:
@@ -68,15 +68,15 @@ class Database:
                 database=target_database
             )
             log_change(
-                "Admin",
-                f"Successfully connected to database {target_database}"
+                f"Successfully connected to database {target_database}",
+                user = "admin"
             )
             return True
         except mysql.connector.Error as err:
             print("MySQL error:", err)
             log_change(
-                "Admin",
-                f"Failed to connect to database {target_database}"
+                f"Failed to connect to database {target_database}",
+                user = "admin"
             )
             return False
 
@@ -101,15 +101,17 @@ class UserManagement(Database):
             "role CHAR(255) DEFAULT 'visitor'",
             "added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
         )
-        log_change("Admin", "Created user table")
+        log_change("Created user table", user = "admin")
 
-    def create_user(self, username, password, role):
+    def create_user(self, username, password, role="visitor", fernet=None):
         roles = ["visitor", "admin", "test"]
         if role not in roles:
             raise Exception("Invalid role")
 
-        key = bytes(k.readline(), "utf-8")
-        fernet = Fernet(key)
+        if fernet is None:
+            key = k.readline().strip().encode("utf-8")
+            fernet = Fernet(key)
+
         token = fernet.encrypt(password.encode("utf-8"))
 
         value = (username, token, role)
@@ -117,14 +119,21 @@ class UserManagement(Database):
         self.cursor.execute(query, value)
         self.db.commit()
         log_change(
-            "Admin",
-            f"Created new user {username} with role {role}"
+            f"Created new user {username} with role {role}",
+            user="admin"
         )
         # print(token)
         # print(fernet.decrypt(token))
         # print(str(fernet.decrypt(token))[2:-1])
 
-    def delete_user(self, username):
+    def delete_user(self, username, executer = "admin"):
+        self.cursor.execute(f"DELETE FROM users WHERE name = '{username}'")
+        self.db.commit()
+        log_change(
+            f"Deleted user {username}",
+            user = executer
+        )
+        
         pass
 
     def set_password(self, old_password, new_password):
@@ -136,6 +145,9 @@ class UserManagement(Database):
 
 db = UserManagement()
 cursor = db.cursor
+for i in range(10):
+    db.delete_user("test")
 
 k.close()
+
 
