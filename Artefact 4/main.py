@@ -1,11 +1,15 @@
 #30/01
 #Imports
 from bidmas import Calculator
+from login import Login
 #Global variables
 
 #Main
 def main():
     instance = Calculator()
+    
+    login = Login()
+    
     while True:
         
         expression = input("Enter expression, type exit to close or type mode to change mode:\n")
