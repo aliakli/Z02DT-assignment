@@ -6,20 +6,28 @@ import math
 class Calculator:
     def __init__(self, angle_mode=True):
         self.angle_mode = angle_mode
+        self.answer = 0
         self.arithmetic_operators = {
             ast.Add: operator.add,
             ast.Sub: operator.sub,
             ast.Mult: operator.mul,
             ast.Div: operator.truediv,
+            ast.Mod: operator.mod,
+            ast.Pow: operator.pow
+            
         }
         self.functions = {
             "sin": (self.sin, 1),
             "cos": (self.cos, 1),
             "tan": (self.tan, 1),
+            "log": (self.log, 1),
+            "ln": (self.ln, 1),
+            "log_n": (self.log, 2),
         }
         self.constants = {
             "pi": math.pi,
             "e": math.e,
+            
         }
 
     def sin(self, angle):
@@ -36,6 +44,16 @@ class Calculator:
         if self.angle_mode:
             return round(math.tan(angle), 2)
         return round(math.tan(math.radians(angle)), 2)
+    
+    def log(self, arg):
+        return round(math.log(arg,10))
+    
+    def ln(self, arg):
+        return round(math.log(arg))
+    
+    def log_n(self, arg, base):
+        
+        return round(math.log(arg, base))
 
     def tokenise_expression(self, expression):
         tokens = ast.parse(expression, mode="eval")
@@ -67,7 +85,7 @@ class Calculator:
         if isinstance(expression, ast.Name):
             if expression.id in self.constants:
                 return self.constants[expression.id]
-            raise Exception(f"Unknown identifier: {expression.id}")
+            return "Error"
 
         if (
             isinstance(expression, ast.Constant)
