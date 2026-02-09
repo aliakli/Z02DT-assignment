@@ -11,7 +11,7 @@ class Logs:
 
 
 class Database:
-    def __init__(self, target_database, aka = "admin"):
+    def __init__(self, target_database = None, aka = "admin"):
         self.host = "localhost"
         self.user = "root"
         self.password = "C0ventryCUC"
@@ -28,7 +28,7 @@ class Database:
             # test
             # self.__create_database("johnCena")
 
-    def _create_database(self, name):
+    def create_database(self, name):
         cursor = self.cursor
         cursor.execute("SHOW DATABASES")
         if name not in cursor:
@@ -95,9 +95,10 @@ class UserManagement(Database):
 
         super()._create_table(
             "users",
-            "name CHAR(255) NOT NULL",
-            "userpass TEXT(255) NOT NULL",
-            "role CHAR(255) DEFAULT 'visitor'",
+            "id INT AUTO_INCREMENT PRIMARY KEY",
+            "name VARCHAR(255) NOT NULL UNIQUE",
+            "userpass VARCHAR(255) NOT NULL",
+            "role VARCHAR(255) DEFAULT 'visitor'",
             "added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
         )
         Logs.log_change("Created user table", user = "admin")
@@ -150,6 +151,6 @@ class UserManagement(Database):
 
 
 if __name__ == "__main__": 
-    db = UserManagement("system")
+    Database().create_database("users")
 
 
