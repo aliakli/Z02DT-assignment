@@ -152,4 +152,6 @@ class UserManagement(Database):
 
 if __name__ == "__main__": 
     Database().create_database("users")
+    UserManagement("users").create_user("admin", "admin", "admin")
+    
 

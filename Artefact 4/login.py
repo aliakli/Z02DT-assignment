@@ -8,6 +8,7 @@ class Login:
     def __init__(self):
         self.isAdmin = False
         self.isLoggedIn = False
+        self.user = ""
     # Create the main window
         self.db = UserManagement()
         self.window = tk.Tk()
@@ -52,6 +53,7 @@ class Login:
             messagebox.showinfo("Success", "Login Successful")
             Logs.log_change("Logged in", user = userid)
             self.isLoggedIn = True
+            self.user += userid
             self.window.destroy()
             if userid == "admin":
                 self.isAdmin = True

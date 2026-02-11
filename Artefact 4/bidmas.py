@@ -85,7 +85,7 @@ class Calculator:
         if isinstance(expression, ast.Name):
             if expression.id in self.constants:
                 return self.constants[expression.id]
-            return "Error"
+            raise Exception("Error")
 
         if (
             isinstance(expression, ast.Constant)
