@@ -228,3 +228,115 @@ system: Successfully connected to database users: 2026-02-09 17:10:55
 system: Connected to database: 2026-02-09 17:10:55
 system: Successfully connected to database users: 2026-02-09 17:16:05
 system: Connected to database: 2026-02-09 17:16:05
+admin: Successfully connected to database None: 2026-02-11 20:12:18
+admin: Connected to database: 2026-02-11 20:12:18
+admin: Created database called users: 2026-02-11 20:12:18
+system: Successfully connected to database users: 2026-02-11 20:12:38
+system: Connected to database: 2026-02-11 20:12:38
+admin: Created table called users: 2026-02-11 20:12:38
+admin: Created user table: 2026-02-11 20:12:38
+admin: Attempted to login: 2026-02-11 20:12:46
+admin: Successfully connected to database None: 2026-02-11 20:13:26
+admin: Connected to database: 2026-02-11 20:13:26
+admin: Created database called users: 2026-02-11 20:13:26
+users: Successfully connected to database users: 2026-02-11 20:13:26
+users: Connected to database: 2026-02-11 20:13:26
+admin: Created table called users: 2026-02-11 20:13:26
+admin: Created user table: 2026-02-11 20:13:26
+system: Successfully connected to database users: 2026-02-11 20:15:08
+system: Connected to database: 2026-02-11 20:15:08
+admin: Attempted to login: 2026-02-11 20:15:17
+admin: Successfully connected to database None: 2026-02-11 20:16:09
+admin: Connected to database: 2026-02-11 20:16:09
+users: Successfully connected to database users: 2026-02-11 20:16:09
+users: Connected to database: 2026-02-11 20:16:09
+admin: Created new user admin with role admin: 2026-02-11 20:16:09
+system: Successfully connected to database users: 2026-02-11 20:16:22
+system: Connected to database: 2026-02-11 20:16:22
+admin: Logged in: 2026-02-11 20:16:28
+system: Successfully connected to database users: 2026-02-11 20:19:04
+system: Connected to database: 2026-02-11 20:19:04
+admin: Logged in: 2026-02-11 20:19:10
+system: Successfully connected to database users: 2026-02-11 20:22:01
+system: Connected to database: 2026-02-11 20:22:01
+admin: Logged in: 2026-02-11 20:22:07
+system: Successfully connected to database users: 2026-02-11 20:23:20
+system: Connected to database: 2026-02-11 20:23:20
+admin: Logged in: 2026-02-11 20:23:27
+system: Successfully connected to database users: 2026-02-11 20:24:35
+system: Connected to database: 2026-02-11 20:24:35
+admin: Logged in: 2026-02-11 20:24:40
+system: Successfully connected to database users: 2026-02-11 20:25:35
+system: Connected to database: 2026-02-11 20:25:35
+admin: Logged in: 2026-02-11 20:25:41
+system: Successfully connected to database users: 2026-02-11 20:25:45
+system: Connected to database: 2026-02-11 20:25:45
+admin: Attempted to login: 2026-02-11 20:25:51
+admin: Logged in: 2026-02-11 20:25:56
+system: Successfully connected to database users: 2026-02-11 20:26:15
+system: Connected to database: 2026-02-11 20:26:15
+admin: Logged in: 2026-02-11 20:26:21
+system: Successfully connected to database users: 2026-02-11 20:40:13
+system: Connected to database: 2026-02-11 20:40:13
+admin: Logged in: 2026-02-11 20:40:20
+system: Successfully connected to database users: 2026-02-11 20:43:31
+system: Connected to database: 2026-02-11 20:43:31
+admin: Logged in: 2026-02-11 20:43:36
+system: Successfully connected to database users: 2026-02-11 20:47:16
+system: Connected to database: 2026-02-11 20:47:16
+admin: Attempted to login: 2026-02-11 20:47:23
+admin: Logged in: 2026-02-11 20:47:27
+system: Successfully connected to database users: 2026-02-11 20:48:25
+system: Connected to database: 2026-02-11 20:48:25
+admin: Logged in: 2026-02-11 20:48:31
+system: Successfully connected to database users: 2026-02-11 20:49:23
+system: Connected to database: 2026-02-11 20:49:23
+admin: Logged in: 2026-02-11 20:49:30
+system: Successfully connected to database users: 2026-02-11 20:49:57
+system: Connected to database: 2026-02-11 20:49:57
+admin: Logged in: 2026-02-11 20:50:05
+system: Successfully connected to database users: 2026-02-11 20:51:41
+system: Connected to database: 2026-02-11 20:51:41
+admin: Logged in: 2026-02-11 20:51:51
+system: Successfully connected to database users: 2026-02-11 20:53:06
+system: Connected to database: 2026-02-11 20:53:06
+admin: Logged in: 2026-02-11 20:53:12
+system: Successfully connected to database users: 2026-02-11 20:55:25
+system: Connected to database: 2026-02-11 20:55:25
+admin: Logged in: 2026-02-11 20:55:32
+system: Successfully connected to database users: 2026-02-11 20:57:35
+system: Connected to database: 2026-02-11 20:57:35
+admin: Logged in: 2026-02-11 20:57:41
+system: Successfully connected to database users: 2026-02-11 20:59:54
+system: Connected to database: 2026-02-11 20:59:54
+admin: Logged in: 2026-02-11 21:00:04
+system: Successfully connected to database users: 2026-02-14 22:11:08
+system: Connected to database: 2026-02-14 22:11:08
+admin: Logged in: 2026-02-14 22:11:15
+users: Successfully connected to database users: 2026-02-14 22:11:15
+users: Connected to database: 2026-02-14 22:11:15
+admin: Successfully connected to database None: 2026-02-14 22:12:49
+admin: Connected to database: 2026-02-14 22:12:49
+users: Successfully connected to database users: 2026-02-14 22:12:49
+users: Connected to database: 2026-02-14 22:12:49
+admin: Created table called calculations: 2026-02-14 22:12:49
+system: Successfully connected to database users: 2026-02-14 22:13:11
+system: Connected to database: 2026-02-14 22:13:11
+admin: Logged in: 2026-02-14 22:13:16
+users: Successfully connected to database users: 2026-02-14 22:13:16
+users: Connected to database: 2026-02-14 22:13:16
+system: Successfully connected to database users: 2026-02-14 22:15:42
+system: Connected to database: 2026-02-14 22:15:42
+admin: Logged in: 2026-02-14 22:15:47
+users: Successfully connected to database users: 2026-02-14 22:15:47
+users: Connected to database: 2026-02-14 22:15:47
+system: Successfully connected to database users: 2026-02-14 22:26:56
+system: Connected to database: 2026-02-14 22:26:56
+admin: Logged in: 2026-02-14 22:27:01
+users: Successfully connected to database users: 2026-02-14 22:27:01
+users: Connected to database: 2026-02-14 22:27:01
+system: Successfully connected to database users: 2026-02-14 22:28:51
+system: Connected to database: 2026-02-14 22:28:51
+admin: Logged in: 2026-02-14 22:29:02
+users: Successfully connected to database users: 2026-02-14 22:29:02
+users: Connected to database: 2026-02-14 22:29:02
