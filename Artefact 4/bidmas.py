@@ -23,6 +23,9 @@ class Calculator:
             "log": (self.log, 1),
             "ln": (self.ln, 1),
             "log_n": (self.log_n, 2),
+            "sqrt": (self.sqrt, 1),
+            "cbrt": (self.cbrt, 1),
+            "n_rt": (self.n_rt, 2)
         }
         self.constants = {  # Predefined constants
             "pi": math.pi,
@@ -52,6 +55,18 @@ class Calculator:
     
     def log_n(self, arg, base):
         return round(math.log(arg,base),3)  # Logarithm with custom base
+    
+    def sqrt(self, arg):
+        return (round(arg**0.5,3)) # Using laws of indices to get square root
+    
+    def cbrt(self, arg):
+        return (round(arg**(1/3),3)) # Using laws of indices to get cube root
+    
+    def n_rt(self, arg, root):
+        try:
+            return (round(arg**(1/root),3)) # Using laws of indices to get the nth root
+        except ZeroDivisionError: # Catch the 1/0 error
+            return "Cannot take the 0th root"    
 
     def tokenise_expression(self, expression):
         tokens = ast.parse(expression, mode="eval")  # Parse expression into AST

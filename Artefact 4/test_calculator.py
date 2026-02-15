@@ -1,5 +1,5 @@
 import pytest  # For running tests
-from bidmas import Calculator  # Import the calculator class
+from bidmas import Calculator  # Import the Calculator class
 
 
 # Class to test calculator functions
@@ -8,7 +8,7 @@ class TestCalculator:
     def setup_method(self):
         self.calc = Calculator()  # Create calculator instance before each test
 
-    # --- Basic arithmetic tests ---
+    # === Basic arithmetic tests ===
     def test_calc_01_addition(self):
         assert self.calc.tokenise_expression("1+1") == 2  # Test addition
 
@@ -28,7 +28,7 @@ class TestCalculator:
         with pytest.raises(ZeroDivisionError):  # Expect ZeroDivisionError
             self.calc.tokenise_expression("5/0")
 
-    # --- Exponentiation tests ---
+    # === Exponentiation tests ===
     def test_calc_07_exponentiation(self):
         assert self.calc.tokenise_expression("2**3") == 8  # Test power operator
 
@@ -38,7 +38,7 @@ class TestCalculator:
     def test_calc_09_exponentiation_one(self):
         assert self.calc.tokenise_expression("1**100") == 1  # 1^n = 1
 
-    # --- Sine tests ---
+    # === Sine tests ===
     def test_calc_10_sin_radians(self):
         self.calc.angle_mode = True  # Set radians
         assert self.calc.tokenise_expression("sin(pi/2)") == 1.0
@@ -47,7 +47,7 @@ class TestCalculator:
         self.calc.angle_mode = False  # Set degrees
         assert self.calc.tokenise_expression("sin(90)") == 1.0
 
-    # --- Cosine tests ---
+    # === Cosine tests ===
     def test_calc_12_cos_radians(self):
         self.calc.angle_mode = True
         assert self.calc.tokenise_expression("cos(pi/2)") == 0.0
@@ -56,7 +56,7 @@ class TestCalculator:
         self.calc.angle_mode = False
         assert self.calc.tokenise_expression("cos(90)") == 0.0
 
-    # --- Tangent tests ---
+    # === Tangent tests ===
     def test_calc_14_tan_radians(self):
         self.calc.angle_mode = True
         assert self.calc.tokenise_expression("tan(pi/4)") == 1.0
@@ -65,7 +65,7 @@ class TestCalculator:
         self.calc.angle_mode = False
         assert self.calc.tokenise_expression("tan(45)") == 1.0
 
-    # --- Logarithm tests ---
+    # === Logarithm tests ===
     def test_calc_16_ln(self):
         assert self.calc.tokenise_expression("ln(e)") == 1.0  # Natural log
 
@@ -75,9 +75,20 @@ class TestCalculator:
     def test_calc_18_log_baseN(self):
         assert self.calc.tokenise_expression("log_n(8, 2)") == 3.0  # Custom base log
         
+    # === Root tests ===
+    
+    def test_calc_19_sqrt(self):
+        assert self.calc.tokenise_expression("sqrt(4)") == 2.0
+        
+    def test_calc_20_cbrt(self):
+        assert self.calc.tokenise_expression("cbrt(27)") == 3.0
+        
+    def test_calc_21_nrt(self): # Nth root
+        assert self.calc.tokenise_expression("n_rt(4,2)") == 2.0
+        
     # Run all tests
     def test_calculator(self):
-        pytest.main(["-v"])  # Run pytest verbose mode
+        pytest.main(["-v"])  # Run pytest in verbose mode
 
 # Run tests if script executed directly
 if __name__ == "__main__":

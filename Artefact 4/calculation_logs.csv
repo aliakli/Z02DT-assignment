@@ -1,0 +1,9 @@
+Username,Expression,Mode,Errors,Timestamp
+admin,sin(90)=1.0,Degrees,,2026-02-14 22:15:57
+admin,pi=3.141592653589793,Degrees,,2026-02-14 22:16:04
+admin,e=2.718281828459045,Degrees,,2026-02-14 22:16:09
+admin,sqrt(4)=2.0,Degrees,,2026-02-14 22:16:19
+admin,9=9,Degrees,,2026-02-14 22:16:23
+admin,4*4=16,Degrees,,2026-02-14 22:16:28
+admin,4**4=256,Degrees,,2026-02-14 22:16:32
+admin,4^4=256,Degrees,,2026-02-14 22:16:50
