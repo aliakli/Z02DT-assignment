@@ -5,4 +5,4 @@ Basic arithmetical functions and memory
 Additional functions (Trig, exponentiation, logarithms, nth root, and mathematical constants)
 ## Artefact 3
 String input<br>
-Removed Trig functions temporarily
+
