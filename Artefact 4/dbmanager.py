@@ -140,17 +140,23 @@ class UserManagement(Database):
         super()._create_table(
             "calculations",
             "id INT AUTO_INCREMENT PRIMARY KEY",
-            "username VARCHAR(255) NOT NULL",
+            "userid INT NOT NULL",
             "expression TEXT NOT NULL",
             "mode TEXT NOT NULL",
             "errors TEXT",
-            "timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
+            "timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
+            "FOREIGN KEY (userid) REFERENCES users(id) ON DELETE CASCADE"
         )
 
     def add_calculation_logs(self, user, expression, mode, errors=None):
         try:
-            value = (user, expression, mode, errors)
-            query = "INSERT INTO calculations (username, expression, mode,errors) VALUES (%s,%s,%s,%s)"
+            self.cursor.execute("SELECT id from users WHERE name = %s",(user,))
+            result = self.cursor.fetchone()
+            if result is None:
+                return False
+            userid = result[0]
+            value = (userid, expression, mode, errors)
+            query = "INSERT INTO calculations (userid, expression, mode,errors) VALUES (%s,%s,%s,%s)"
             self.cursor.execute(query, value)  # Add calculation record
             self.db.commit()
             return True
@@ -158,9 +164,13 @@ class UserManagement(Database):
             return False
 
     def get_calculation_logs(self):
-        self.cursor.execute("SELECT username, expression, mode,errors, timestamp FROM calculations")  # Fetch logs
+        self.cursor.execute("SELECT userid, expression, mode,errors, timestamp FROM calculations")  # Fetch logs
         return self.cursor.fetchall()
-
+    
+    def get_userid(self, user):
+        self.cursor.execute("SELECT id from users WHERE name = %s",(user,))
+        result = self.cursor.fetchone()
+        return result[0] if result else None
 # Initialize database and tables when run directly
 if __name__ == "__main__":
     Database().create_database("users")  # Ensure database exists

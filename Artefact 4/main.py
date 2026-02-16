@@ -19,13 +19,14 @@ class CalcLogs:
         with open("calculation_logs.csv", "w", newline="") as file:
             calculations = self.UM.get_calculation_logs()  # Get all logs
             writer = csv.writer(file)
-            writer.writerow(["Username", "Expression", "Mode", "Errors", "Timestamp"])  # Header
+            writer.writerow(["UserID", "Expression", "Mode", "Errors", "Timestamp"])  # Header
             writer.writerows(calculations)  # Write rows
 
 
 # ================= MAIN CALCULATOR APP =================
 class CalculatorApp:
     def __init__(self, root, user, isAdmin):
+        self.UM = UserManagement("users")
         self.root = root
         self.root.title("Calculator")
         self.root.geometry("650x500")
@@ -33,8 +34,9 @@ class CalculatorApp:
         self.instance = Calculator()   # Create calculator
         self.logs = CalcLogs()         # Create log handler
         self.user = user               # Logged-in user
+        self.userid = None
         self.isAdmin = isAdmin         # Admin status
-
+        self.userid = self.UM.get_userid(user)
         self.mode = "Radians"          # Default mode
         self.instance.angle_mode = True
 
@@ -101,9 +103,9 @@ class CalculatorApp:
                 self.write_output("\n--- Your Calculation History ---\n")
 
                 for row in reader:
-                    username, expression, mode, errors, timestamp = row
+                    userid, expression, mode, errors, timestamp = row
 
-                    if username == self.user:
+                    if int(userid) == self.userid:
                         found = True
                         if errors:
                             self.write_output(f"{expression} | {mode} | ERROR: {errors} | {timestamp}\n")
