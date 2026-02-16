@@ -33,6 +33,23 @@ class Calculator:
         self.constants = {  # Predefined constants
             "pi": math.pi,
             "e": math.e,
+            "help": """
+====== Trig functions ======
+sin(angle) -> default radians
+cos(angle) -> default radians
+tan(angle) -> default radians
+
+arcsin(ratio)
+arccos(ratio)
+arctan(ratio)
+====== Logarithms ======
+log(arg) -> log base 10
+ln(arg) -> log base e
+log_n(arg, base) -> log base {base}
+
+
+
+"""
         }
 
     def sin(self, angle):
@@ -41,15 +58,15 @@ class Calculator:
         return round(math.sin(math.radians(angle)), 2)  # Convert degrees to radians
     
     def arcsin(self, ratio):
-        if ratio > 1 or ratio < 0:
-            return "Ratio must be between 1 and zero"
+        if ratio > 1 or ratio < -1:
+            return "Ratio must be between 1 and -1"
         if self.angle_mode:
             return round(math.asin(ratio), 3)
         return round(math.degrees(math.asin(ratio)), 3)
     
     def arccos(self, ratio):
-        if ratio > 1 or ratio < 0:
-            return "Ratio must be between 1 and zero"
+        if ratio > 1 or ratio < -1:
+            return "Ratio must be between 1 and -1"
         if self.angle_mode:
             return round(math.acos(ratio), 3)
         return round(math.degrees(math.acos(ratio)), 3)
