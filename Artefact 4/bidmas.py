@@ -4,7 +4,7 @@ import math  # For math functions and constants
 
 
 class Calculator:
-    """Simple calculator supporting arithmetic, trig, logs, and constants."""
+# ====== Simple calculator supporting arithmetic, trig, logs, and constants ======
     
     def __init__(self, angle_mode=True):
         self.angle_mode = angle_mode  # True for radians, False for degrees
