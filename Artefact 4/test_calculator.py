@@ -1,6 +1,6 @@
 import pytest  # For running tests
 from bidmas import Calculator  # Import the Calculator class
-
+import math
 
 # Class to test calculator functions
 class TestCalculator:
@@ -46,44 +46,68 @@ class TestCalculator:
     def test_calc_11_sin_degrees(self):
         self.calc.angle_mode = False  # Set degrees
         assert self.calc.tokenise_expression("sin(90)") == 1.0
+        
+    def test_calc_12_arcsin_radians(self):
+        self.calc.angle_mode = True
+        assert self.calc.tokenise_expression("arcsin(1)") == round(math.pi/2,3)
+    def test_calc_13_arcsin_degrees(self):
+        self.calc.angle_mode = False
+        assert self.calc.tokenise_expression("arcsin(1)") == 90
 
     # === Cosine tests ===
-    def test_calc_12_cos_radians(self):
+    def test_calc_14_cos_radians(self):
         self.calc.angle_mode = True
         assert self.calc.tokenise_expression("cos(pi/2)") == 0.0
 
-    def test_calc_13_cos_degrees(self):
+    def test_calc_15_cos_degrees(self):
         self.calc.angle_mode = False
         assert self.calc.tokenise_expression("cos(90)") == 0.0
+        
+    def test_calc_16_arcos_radians(self):
+        self.calc.angle_mode = True
+        assert self.calc.tokenise_expression("arccos(0)") == round(math.pi/2,3)
+    
+    def test_calc_17_arcos_degrees(self):
+        self.calc.angle_mode = False
+        assert self.calc.tokenise_expression("arccos(0)") == 90
 
     # === Tangent tests ===
-    def test_calc_14_tan_radians(self):
+    def test_calc_18_tan_radians(self):
         self.calc.angle_mode = True
         assert self.calc.tokenise_expression("tan(pi/4)") == 1.0
 
-    def test_calc_15_tan_degrees(self):
+    def test_calc_19_tan_degrees(self):
         self.calc.angle_mode = False
         assert self.calc.tokenise_expression("tan(45)") == 1.0
+        
+    def test_calc_20_arctan_radians(self):
+        self.calc.angle_mode = True
+        assert self.calc.tokenise_expression("arctan(1)") == round(math.pi/4,3)
+    
+    def test_calc_21_arctan_degrees(self):
+        self.calc.angle_mode = False
+        assert self.calc.tokenise_expression("arctan(1)") == 45
+        
 
     # === Logarithm tests ===
-    def test_calc_16_ln(self):
+    def test_calc_22_ln(self):
         assert self.calc.tokenise_expression("ln(e)") == 1.0  # Natural log
 
-    def test_calc_17_log_base10(self):
+    def test_calc_23_log_base10(self):
         assert self.calc.tokenise_expression("log(100)") == 2.0  # Base 10 log
 
-    def test_calc_18_log_baseN(self):
+    def test_calc_24_log_baseN(self):
         assert self.calc.tokenise_expression("log_n(8, 2)") == 3.0  # Custom base log
         
     # === Root tests ===
     
-    def test_calc_19_sqrt(self):
+    def test_calc_25_sqrt(self):
         assert self.calc.tokenise_expression("sqrt(4)") == 2.0
         
-    def test_calc_20_cbrt(self):
+    def test_calc_26_cbrt(self):
         assert self.calc.tokenise_expression("cbrt(27)") == 3.0
         
-    def test_calc_21_nrt(self): # Nth root
+    def test_calc_27_nrt(self): # Nth root
         assert self.calc.tokenise_expression("n_rt(4,2)") == 2.0
         
     # Run all tests

@@ -20,6 +20,9 @@ class Calculator:
             "sin": (self.sin, 1),
             "cos": (self.cos, 1),
             "tan": (self.tan, 1),
+            "arcsin" : (self.arcsin, 1),
+            "arccos" : (self.arccos, 1),
+            "arctan" : (self.arctan, 1),
             "log": (self.log, 1),
             "ln": (self.ln, 1),
             "log_n": (self.log_n, 2),
@@ -36,6 +39,26 @@ class Calculator:
         if self.angle_mode:
             return round(math.sin(angle), 2)  # Calculate sine in radians
         return round(math.sin(math.radians(angle)), 2)  # Convert degrees to radians
+    
+    def arcsin(self, ratio):
+        if ratio > 1 or ratio < 0:
+            return "Ratio must be between 1 and zero"
+        if self.angle_mode:
+            return round(math.asin(ratio), 3)
+        return round(math.degrees(math.asin(ratio)), 3)
+    
+    def arccos(self, ratio):
+        if ratio > 1 or ratio < 0:
+            return "Ratio must be between 1 and zero"
+        if self.angle_mode:
+            return round(math.acos(ratio), 3)
+        return round(math.degrees(math.acos(ratio)), 3)
+    
+    def arctan(self, ratio):
+        if self.angle_mode:
+            return round(math.atan(ratio), 3)
+        return round(math.degrees(math.atan(ratio)), 3)
+
 
     def cos(self, angle):
         if self.angle_mode:
