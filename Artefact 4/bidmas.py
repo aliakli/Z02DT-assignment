@@ -34,20 +34,26 @@ class Calculator:
             "pi": math.pi,
             "e": math.e,
             "help": """
-====== Trig functions ======
-sin(angle) -> default radians
-cos(angle) -> default radians
-tan(angle) -> default radians
 
-arcsin(ratio)
-arccos(ratio)
+====== Trig functions ======
+*Default Radians*
+sin(angle) 
+cos(angle) 
+tan(angle) 
+====== Inverse Trig Functions ======
+*Default Radians*
+arcsin(ratio) must be 1>=ratio>=-1
+arccos(ratio) must be 1>=ratio>=-1
 arctan(ratio)
+
 ====== Logarithms ======
 log(arg) -> log base 10
 ln(arg) -> log base e
 log_n(arg, base) -> log base {base}
 
-
+====== Constants ======
+pi = 3.141592653589793
+e = 2.718281828459045
 
 """
         }
