@@ -88,6 +88,8 @@ class Calculator:
         return (round(arg**(1/3),3)) # Using laws of indices to get cube root
     
     def n_rt(self, arg, root):
+        if arg < 0 and root % 2 == 0: # Tessting if the root is even and the argument is negative to avoid complex roots
+            return "Result cannot be complex"
         try:
             return (round(arg**(1/root),3)) # Using laws of indices to get the nth root
         except ZeroDivisionError: # Catch the 1/0 error
