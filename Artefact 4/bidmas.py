@@ -80,6 +80,8 @@ class Calculator:
         return round(math.log(arg,base),3)  # Logarithm with custom base
     
     def sqrt(self, arg):
+        if arg < 0: # Test for complex result
+            return "Result cannot be complex" 
         return (round(arg**0.5,3)) # Using laws of indices to get square root
     
     def cbrt(self, arg):
