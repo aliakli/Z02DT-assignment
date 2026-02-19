@@ -53,7 +53,7 @@ class Login:
             self.isLoggedIn = True
             self.user += userid  # Store logged-in user
             self.window.destroy()  # Close login window
-            if userid == "admin":
+            if userid == "admin" or userid == "test":
                 self.isAdmin = True  # Grant admin privileges
             return True
         

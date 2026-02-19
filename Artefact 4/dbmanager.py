@@ -95,6 +95,7 @@ class UserManagement(Database):
         )
         
         self.create_user("admin", "admin", "admin")
+        self.create_user("test", "test", "test")
         Logs.log_change("Created user table", user="admin")
         
     def create_user(self, username, password, role="visitor"):
