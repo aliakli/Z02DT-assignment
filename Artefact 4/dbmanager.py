@@ -30,11 +30,8 @@ class Database:
         cursor = self.cursor
         cursor.execute("SHOW DATABASES")  # Get existing databases
         if name not in cursor:
-            try:
-                cursor.execute(f"CREATE DATABASE {name}")  # Create DB
-                Logs.log_change(f"Created database called {name}", user="admin")
-            except:
-                print(f"database '{name}' could not be created")
+            cursor.execute(f"CREATE DATABASE IF NOT EXISTS {name}")  # Create DB
+            Logs.log_change(f"Created database called {name}", user="admin")
 
     def _create_table(self, table_name, *columns):
         cursor = self.cursor
@@ -178,3 +175,4 @@ if __name__ == "__main__":
     Database().create_database("users")  # Ensure database exists
     UM = UserManagement("users")  # Connect to user DB
     UM.create_calculation_logs()  # Create calculations table
+
