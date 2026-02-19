@@ -4,47 +4,59 @@ import math  # For math functions and constants
 
 
 class Calculator:
-# ====== Simple calculator supporting arithmetic, trig, logs, and constants ======
-    
+    # ====== Simple calculator supporting arithmetic, trig, logs, and constants ======
+
     def __init__(self, angle_mode=True):
         self.angle_mode = angle_mode  # True for radians, False for degrees
-        self.arithmetic_operators = {  # Mapping AST operators to functions
+
+        # Mapping AST operators to functions
+        self.arithmetic_operators = {
             ast.Add: operator.add,
             ast.Sub: operator.sub,
             ast.Mult: operator.mul,
             ast.Div: operator.truediv,
             ast.Mod: operator.mod,
-            ast.Pow: operator.pow
+            ast.Pow: operator.pow,
         }
-        self.functions = {  # Supported math functions with argument counts
+
+        # Supported math functions with argument counts
+        self.functions = {
             "sin": (self.sin, 1),
             "cos": (self.cos, 1),
             "tan": (self.tan, 1),
-            "arcsin" : (self.arcsin, 1),
-            "arccos" : (self.arccos, 1),
-            "arctan" : (self.arctan, 1),
+            "arcsin": (self.arcsin, 1),
+            "arccos": (self.arccos, 1),
+            "arctan": (self.arctan, 1),
             "log": (self.log, 1),
             "ln": (self.ln, 1),
             "log_n": (self.log_n, 2),
             "sqrt": (self.sqrt, 1),
             "cbrt": (self.cbrt, 1),
-            "n_rt": (self.n_rt, 2)
+            "n_rt": (self.n_rt, 2),
         }
-        self.constants = {  # Predefined constants
+
+        # Predefined constants
+        self.constants = {
             "pi": math.pi,
             "e": math.e,
             "help": """
-
 ====== Trig functions ======
 *Default Radians*
-sin(angle) 
-cos(angle) 
-tan(angle) 
+sin(angle)
+cos(angle)
+tan(angle)
+
 ====== Inverse Trig Functions ======
 *Default Radians*
 arcsin(ratio) must be 1>=ratio>=-1
 arccos(ratio) must be 1>=ratio>=-1
 arctan(ratio)
+
+====== Radical Functions ======
+*All results must be on the real plane*
+sqrt(arg) must not be negative
+cbrt(arg)
+n_rt(arg, root) if root is even, root cannot be negative
 
 ====== Logarithms ======
 log(arg) -> log base 10
@@ -54,73 +66,75 @@ log_n(arg, base) -> log base {base}
 ====== Constants ======
 pi = 3.141592653589793
 e = 2.718281828459045
-
-"""
+""",
         }
 
+    # ====== Trigonometric functions ======
     def sin(self, angle):
         if self.angle_mode:
             return round(math.sin(angle), 2)  # Calculate sine in radians
         return round(math.sin(math.radians(angle)), 2)  # Convert degrees to radians
-    
+
     def arcsin(self, ratio):
-        if ratio > 1 or ratio < -1:
+        if ratio > 1 or ratio < -1:  # Validate input
             return "Ratio must be between 1 and -1"
         if self.angle_mode:
-            return round(math.asin(ratio), 3)
-        return round(math.degrees(math.asin(ratio)), 3)
-    
+            return round(math.asin(ratio), 3)  # Radians
+        return round(math.degrees(math.asin(ratio)), 3)  # Degrees
+
     def arccos(self, ratio):
         if ratio > 1 or ratio < -1:
             return "Ratio must be between 1 and -1"
         if self.angle_mode:
             return round(math.acos(ratio), 3)
         return round(math.degrees(math.acos(ratio)), 3)
-    
+
     def arctan(self, ratio):
         if self.angle_mode:
             return round(math.atan(ratio), 3)
         return round(math.degrees(math.atan(ratio)), 3)
 
-
     def cos(self, angle):
         if self.angle_mode:
-            return round(math.cos(angle), 2)  # Calculate cosine in radians
+            return round(math.cos(angle), 2)  # Cosine in radians
         return round(math.cos(math.radians(angle)), 2)  # Convert degrees to radians
 
     def tan(self, angle):
         if self.angle_mode:
-            return round(math.tan(angle), 2)  # Calculate tangent in radians
+            return round(math.tan(angle), 2)  # Tangent in radians
         return round(math.tan(math.radians(angle)), 2)  # Convert degrees to radians
-    
+
+    # ====== Logarithmic functions ======
     def log(self, arg):
-        return round(math.log(arg,10),3)  # Logarithm base 10
-    
+        return round(math.log(arg, 10), 3)  # Base 10
+
     def ln(self, arg):
-        return round(math.log(arg),3)  # Natural logarithm
-    
+        return round(math.log(arg), 3)  # Natural log
+
     def log_n(self, arg, base):
-        return round(math.log(arg,base),3)  # Logarithm with custom base
-    
+        return round(math.log(arg, base), 3)  # Custom base
+
+    # ====== Radical functions ======
     def sqrt(self, arg):
-        if arg < 0: # Test for complex result
-            return "Result cannot be complex" 
-        return (round(arg**0.5,3)) # Using laws of indices to get square root
-    
+        if arg < 0:  # Check for complex result
+            return "Result cannot be complex"
+        return round(arg**0.5, 3)  # Square root
+
     def cbrt(self, arg):
-        return (round(arg**(1/3),3)) # Using laws of indices to get cube root
-    
+        return round(arg**(1 / 3), 3)  # Cube root
+
     def n_rt(self, arg, root):
-        if arg < 0 and root % 2 == 0: # Tessting if the root is even and the argument is negative to avoid complex roots
+        if arg < 0 and root % 2 == 0:  # Avoid complex roots for even roots
             return "Result cannot be complex"
         try:
-            return (round(arg**(1/root),3)) # Using laws of indices to get the nth root
-        except ZeroDivisionError: # Catch the 1/0 error
-            return "Cannot take the 0th root"    
+            return round(arg**(1 / root), 3)  # Nth root
+        except ZeroDivisionError:  # Catch division by zero
+            return "Cannot take the 0th root"
 
+    # ====== Parsing and evaluating expressions ======
     def tokenise_expression(self, expression):
-        tokens = ast.parse(expression, mode="eval")  # Parse expression into AST
-        return self.evaluate_expression(tokens.body)  # Evaluate parsed AST
+        tokens = ast.parse(expression, mode="eval")  # Parse into AST
+        return self.evaluate_expression(tokens.body)  # Evaluate AST
 
     def evaluate_function(self, expression):
         if not isinstance(expression.func, ast.Name):
@@ -128,45 +142,46 @@ e = 2.718281828459045
 
         function_name = expression.func.id  # Get function name
         if function_name not in self.functions:
-            raise Exception  # Raise error if function not supported
+            raise Exception  # Function not supported
 
-        function, max_args = self.functions[function_name]  # Get function and arg count
+        function, max_args = self.functions[function_name]  # Get function
         if len(expression.args) != max_args:
             raise Exception(
                 f"Error: {function_name}() takes {max_args} arguments."
-            )  # Validate number of arguments
+            )
 
-        values = [
-            self.evaluate_expression(arg) for arg in expression.args
-        ]  # Evaluate all arguments
-        return function(*values)  # Call function with evaluated args
+        # Evaluate arguments recursively
+        values = [self.evaluate_expression(arg) for arg in expression.args]
+        return function(*values)  # Call function
 
     def evaluate_expression(self, expression):
-        """Recursively evaluates AST nodes for numbers, constants, functions, and operations."""
+        """Recursively evaluates AST nodes for numbers, constants,
+        functions, and operations.
+        """
         if isinstance(expression, ast.Call):
-            return self.evaluate_function(expression)  # Evaluate function calls
+            return self.evaluate_function(expression)  # Function call
 
         if isinstance(expression, ast.Name):
             if expression.id in self.constants:
-                return self.constants[expression.id]  # Return constant value
+                return self.constants[expression.id]  # Return constant
             raise Exception("Error")  # Undefined variable
 
         if (
             isinstance(expression, ast.Constant)
             and isinstance(expression.value, (int, float))
         ):
-            return expression.value  # Return numeric constant
+            return expression.value  # Numeric constant
 
         if isinstance(expression, ast.BinOp):
-            left = self.evaluate_expression(expression.left)  # Evaluate left operand
-            right = self.evaluate_expression(expression.right)  # Evaluate right operand
+            left = self.evaluate_expression(expression.left)  # Left operand
+            right = self.evaluate_expression(expression.right)  # Right operand
             operation_type = type(expression.op)
 
             if operation_type in self.arithmetic_operators:
-                return self.arithmetic_operators[operation_type](left, right)  # Perform operation
+                return self.arithmetic_operators[operation_type](left, right)
 
         if isinstance(expression, ast.UnaryOp):
-            value = self.evaluate_expression(expression.operand)  # Evaluate operand
+            value = self.evaluate_expression(expression.operand)  # Operand
 
             if isinstance(expression.op, ast.UAdd):
                 return +value  # Unary plus
