@@ -87,7 +87,7 @@ class UserManagement(Database):
         tables = [row[0] for row in cursor.fetchall()]
         if "users" in tables:  # Skip if table exists
             return
-
+        
         super()._create_table(
             "users",
             "id INT AUTO_INCREMENT PRIMARY KEY",
@@ -96,8 +96,10 @@ class UserManagement(Database):
             "role VARCHAR(255) DEFAULT 'visitor'",
             "added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
         )
+        
+        self.create_user("admin", "admin", "admin")
         Logs.log_change("Created user table", user="admin")
-
+        
     def create_user(self, username, password, role="visitor"):
         roles = ["visitor", "admin", "test"]
         if role not in roles:  # Validate role

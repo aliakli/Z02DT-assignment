@@ -1,7 +1,8 @@
 from dbmanager import UserManagement,Database
 
-
-if __name__ == "__main__":
-    Database().create_database("users")  # Ensure database exists
-    UM = UserManagement("users")  # Connect to user DB
-    UM.create_calculation_logs()  # Create calculations table
+class Setup:
+    def setup(self):
+        Database().create_database("users")  # Ensure database exists
+        self.UM = UserManagement("users")  # Connect to user DB
+        self.UM.create_calculation_logs()  # Create calculations table
+        
