@@ -114,7 +114,8 @@ class TestCalculator:
     def test_calculator(self):
         pytest.main(["-v"])  # Run pytest in verbose mode
 
-# Run tests if script executed directly
+# Run tests if executed directly
 if __name__ == "__main__":
     test = TestCalculator()
     test.test_calculator()
+

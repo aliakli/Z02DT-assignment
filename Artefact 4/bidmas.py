@@ -121,13 +121,14 @@ e = 2.718281828459045
         return round(arg**0.5, 3)  # Square root
 
     def cbrt(self, arg):
-        return round(arg**(1 / 3), 3)  # Cube root
+        print(arg)
+        return round(float(abs(arg))**(1 / 3), 3)  # Cube root
 
     def n_rt(self, arg, root):
         if arg < 0 and root % 2 == 0:  # Avoid complex roots for even roots
             return "Result cannot be complex"
         try:
-            return round(arg**(1 / root), 3)  # Nth root
+            return round(abs(arg)**(1 / root), 3)  # Nth root
         except ZeroDivisionError:  # Catch division by zero
             return "Cannot take the 0th root"
 
